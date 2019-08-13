@@ -7,7 +7,7 @@ class Home extends React.Component {
         <div className="card bg-light m-5">
           <div className="card-body">
             <h2>Welcome to @corpsmap</h2>
-            <p>This is only the start, jump into the code to create your new site!</p>
+            <p>This is gonna be sweet!</p>
           </div>
         </div>
       </div>
