@@ -6,6 +6,12 @@ class Home extends React.Component {
     super(props);
     this.renderActions = this.renderActions.bind(this);
     this.renderMessage = this.renderMessage.bind(this);
+    this.goToMap = this.goToMap.bind(this);
+  }
+
+  goToMap(){
+    const { doUpdateUrl } = this.props;
+    doUpdateUrl('/map');
   }
 
   renderMessage(){
@@ -30,10 +36,16 @@ class Home extends React.Component {
 
     if(authIsLoggedIn){
       return (
-        <button 
-          onClick={ doAuthLogout } 
-          className="btn btn-primary"
-        >Logout</button>
+        <>
+          <button 
+            onClick={ doAuthLogout } 
+            className="btn btn-primary"
+          >Logout</button>
+          <button
+            onClick={ this.goToMap }
+            className="btn btn-secondary"
+          >Go To Map</button>
+        </>
       )
     }else{
       return (
@@ -71,6 +83,7 @@ class Home extends React.Component {
 export default connect(
   'doAuthLogin',
   'doAuthLogout',
+  'doUpdateUrl',
   'selectAuthIsLoggedIn',
   'selectAuthUsername',
   Home
