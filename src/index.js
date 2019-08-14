@@ -9,6 +9,7 @@ import App from './App';
 
 // Import css here, to use a theme, update the link to point at that theme
 import './css/bootstrap/css/bootstrap.min.css';
+import './css/mapskin/css/mapskin.min.css';
 import './css/index.css';
 
 // Activate the debug module if we're in dev mode
