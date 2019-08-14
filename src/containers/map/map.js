@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'redux-bundler-react';
+import OlMap from './ol-map';
+import Toolbar from './toolbar/toolbar';
 
 class Map extends React.Component {
   constructor(props){
@@ -16,9 +18,8 @@ class Map extends React.Component {
   render(){
     return (
       <div>
-        <button onClick={ this.goHome } className="btn btn-secondary">
-          Go Home
-        </button>
+        <OlMap />
+        <Toolbar goHomeFn={ this.goHome }/>
       </div>
     )
   }
