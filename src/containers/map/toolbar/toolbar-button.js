@@ -25,7 +25,8 @@ class ToolbarButton extends React.Component {
     const btnClass = classnames({
       'btn': true,
       'btn-primary': true,
-      'active': active
+      'active': active,
+      'mr-1': true
     })
 
     return (
