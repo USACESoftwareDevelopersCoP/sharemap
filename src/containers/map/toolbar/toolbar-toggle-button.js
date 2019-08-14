@@ -2,7 +2,7 @@ import React from 'react';
 import ToolbarButton from './toolbar-button';
 
 class ToggleButton extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       isConfirming: false
@@ -11,48 +11,49 @@ class ToggleButton extends React.Component {
     this.confirm = this.confirm.bind(this);
   }
 
-  toggleIsConfirming(){
+  toggleIsConfirming() {
     this.setState({
       isConfirming: !this.state.isConfirming
     })
   }
 
-  confirm(){
+  confirm() {
     const { onClick } = this.props;
     this.setState({
       isConfirming: false
     }, () => {
-      if(onClick && typeof onClick === 'function') onClick();
+      console.log('hello world')
+      if (onClick && typeof onClick === 'function') onClick();
     })
   }
 
-  render(){
+  render() {
     const { isConfirming } = this.state;
     const { iconClass, text } = this.props;
 
-    if(isConfirming){
+    if (isConfirming) {
       return (
         <div className="btn-group">
-          <button 
+          <button
             className="btn btn-secondary"
-            onClick={ this.toggleIsConfirming }
+            onClick={this.toggleIsConfirming}
           >
-            <i className="ms ms-minus" /> { text ? 'Cancel' : ''}
+            <i className="ms ms-minus" /> {text ? 'Cancel' : ''}
           </button>
-          <button 
+          <button
             className="btn btn-danger"
-            onClick={ this.confirm }
+            onClick={this.confirm}
           >
-            <i className="ms ms-plus" /> { text ? 'Confirm' : ''}
+            <i className="ms ms-plus" /> {text ? 'Confirm' : ''}
           </button>
         </div>
       )
-    }else{
+    } else {
       return (
-        <ToolbarButton 
-          onClick={ this.toggleIsConfirming }
-          iconClass={ iconClass }
-          text={ text }
+        <ToolbarButton
+          onClick={this.toggleIsConfirming}
+          iconClass={iconClass}
+          text={text}
         />
       )
     }
