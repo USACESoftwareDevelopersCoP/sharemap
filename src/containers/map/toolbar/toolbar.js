@@ -1,10 +1,22 @@
 import React from 'react';
+import { connect } from 'redux-bundler-react';
 import ToolbarButton from './toolbar-button';
 import ToggleButton from './toolbar-toggle-button';
 
 class Toolbar extends React.Component{
   render(){
-    const { goHomeFn } = this.props;
+
+    const { 
+      goHomeFn,
+      drawPoints,
+      drawLines,
+      drawPolygons,
+      drawActiveInteraction,
+      drawSelectInteraction,
+      doDrawAddInteraction,
+      doDrawRemoveInteraction
+    } = this.props;
+
     return (
       <div
         style={{
@@ -24,23 +36,51 @@ class Toolbar extends React.Component{
         </div>
 
         <ToolbarButton 
+          active={ drawActiveInteraction === drawSelectInteraction }
           iconClass="ms ms-select-arrow"
-          onClick={ () => { } }
+          onClick={ () => { 
+            if(drawActiveInteraction === drawSelectInteraction){
+              doDrawRemoveInteraction();
+            }else{
+              doDrawAddInteraction(drawSelectInteraction);
+            }
+          }}
         />
 
         <ToolbarButton 
+          active={ drawActiveInteraction === drawPoints }
           iconClass="ms ms-points"
-          onClick={ () => { } }
+          onClick={ () => { 
+            if(drawActiveInteraction === drawPoints){
+              doDrawRemoveInteraction();
+            }else{
+              doDrawAddInteraction(drawPoints);
+            }
+          }}
         />
 
         <ToolbarButton 
+          active={ drawActiveInteraction === drawLines }
           iconClass="ms ms-line"
-          onClick={ () => { } }
+          onClick={ () => { 
+            if(drawActiveInteraction === drawLines){
+              doDrawRemoveInteraction();
+            }else{
+              doDrawAddInteraction(drawLines);
+            }
+          }}
         />
 
         <ToolbarButton 
+          active={ drawActiveInteraction === drawPolygons }
           iconClass="ms ms-polygon"
-          onClick={ () => { } }
+          onClick={ () => { 
+            if(drawActiveInteraction === drawPolygons){
+              doDrawRemoveInteraction();
+            }else{
+              doDrawAddInteraction(drawPolygons);
+            }
+          }}
         />
 
         <ToggleButton 
@@ -52,4 +92,13 @@ class Toolbar extends React.Component{
   }
 }
 
-export default Toolbar;
+export default connect(
+  'selectDrawSelectInteraction',
+  'selectDrawPoints',
+  'selectDrawLines',
+  'selectDrawPolygons',
+  'selectDrawActiveInteraction',
+  'doDrawAddInteraction',
+  'doDrawRemoveInteraction',
+  Toolbar
+);
