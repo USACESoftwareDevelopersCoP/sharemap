@@ -14,7 +14,8 @@ class Toolbar extends React.Component{
       drawActiveInteraction,
       drawSelectInteraction,
       doDrawAddInteraction,
-      doDrawRemoveInteraction
+      doDrawRemoveInteraction,
+      doDrawDeleteSelected
     } = this.props;
 
     return (
@@ -85,7 +86,7 @@ class Toolbar extends React.Component{
 
         <ToggleButton 
           iconClass="ms ms-transform"
-          onClick={() => { window.alert('gonna crush it')}}
+          onClick={ doDrawDeleteSelected }
         />
       </div>
     )
@@ -100,5 +101,6 @@ export default connect(
   'selectDrawActiveInteraction',
   'doDrawAddInteraction',
   'doDrawRemoveInteraction',
+  'doDrawDeleteSelected',
   Toolbar
 );

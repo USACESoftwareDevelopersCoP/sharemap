@@ -110,6 +110,21 @@ export default {
     }
   },
 
+  doDrawDeleteSelected: () => ({ dispatch, store }) => {
+    const layer = store.selectDrawLayer();
+    const source = layer.getSource();
+    const selectInteraction = store.selectDrawSelectInteraction();
+    const features = selectInteraction.getFeatures();
+    features.forEach((feature) => {
+      source.removeFeature(feature);
+    })
+    features.clear();
+    dispatch({
+      type: 'DRAW_DELETE_SELECTED',
+      payload: {}
+    })
+  },
+
   // selectors
   selectDrawLayer: (state) => {
     return state.draw.layer;
