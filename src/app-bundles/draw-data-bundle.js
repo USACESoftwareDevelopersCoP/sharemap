@@ -40,6 +40,18 @@ export default {
     })
   },
 
+  doDrawDataUpdate: (e) => ({ dispatch, store, apiPut }) => {
+    const feature = e.feature;
+    const id = feature.getId();
+    if(!id) return null;
+    const geoJSONFeature = geoJSON.writeFeature(feature);
+    apiPut(`/data/${id}`, JSON.parse(geoJSONFeature), (err, response, body) => {
+      if(err || response.statusCode !== 200){
+        console.error(err, response);
+      }
+    })
+  },
+
   doDrawDataFetch: () => ({ dispatch, store, apiGet }) => {
     dispatch({
       type: 'DRAW_DATA_FETCH_START',

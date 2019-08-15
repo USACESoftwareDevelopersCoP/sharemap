@@ -38,13 +38,13 @@ class ToggleButton extends React.Component {
             className="btn btn-secondary"
             onClick={this.toggleIsConfirming}
           >
-            <i className="ms ms-minus" /> {text ? 'Cancel' : ''}
+            <i className="mdi mdi-cancel" /> {text ? 'Cancel' : ''}
           </button>
           <button
             className="btn btn-danger"
             onClick={this.confirm}
           >
-            <i className="ms ms-plus" /> {text ? 'Confirm' : ''}
+            <i className="mdi mdi-check" /> {text ? 'Confirm' : ''}
           </button>
         </div>
       )

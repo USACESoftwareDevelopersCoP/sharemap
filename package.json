@@ -6,6 +6,7 @@
     "@corpsmap/corpsmap-bundles": "^1.8.8",
     "@corpsmap/corpsmap-react-scripts": "3.1.0",
     "classnames": "^2.2.6",
+    "lodash": "^4.17.15",
     "money-clip": "^3.0.1",
     "ol": "^5.3.3",
     "react": "^16.9.0",

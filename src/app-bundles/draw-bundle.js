@@ -3,6 +3,7 @@ import VectorLayer from 'ol/layer/Vector';
 import Draw from 'ol/interaction/Draw';
 import Select from 'ol/interaction/Select';
 import Modify from 'ol/interaction/Modify';
+import { debounce } from 'lodash';
 
 export default {
 
@@ -95,6 +96,7 @@ export default {
 
       src.on('addfeature', store.doDrawDataSave);
       src.on('removefeature', store.doDrawDataDelete);
+      src.on('changefeature', debounce(store.doDrawDataUpdate, 200));
 
       const drawPoints = new Draw({
         type: 'Point',

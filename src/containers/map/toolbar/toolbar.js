@@ -30,7 +30,7 @@ class Toolbar extends React.Component{
 
         <div className="float-right">
           <ToolbarButton 
-            iconClass="ms ms-postgis mr-1"
+            iconClass="mdi mdi-home mr-1"
             onClick={ goHomeFn }
             text="Go Home"
           />
@@ -85,7 +85,7 @@ class Toolbar extends React.Component{
         />
 
         <ToggleButton 
-          iconClass="ms ms-transform"
+          iconClass="mdi mdi-trash-can"
           onClick={ doDrawDeleteSelected }
         />
       </div>

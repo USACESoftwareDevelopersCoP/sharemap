@@ -7,12 +7,14 @@ import cache from '../utils/cache'
 import routesBundle from './routes-bundle';
 import drawBundle from './draw-bundle';
 import drawDataBundle from './draw-data-bundle';
+import collabBundle from './collab-bundle';
 
 import { 
   createAuthBundle, 
   createOlMapBundle,
   createOlBasemapBundle,
-  createJwtApiBundle
+  createJwtApiBundle,
+  createWebsocketApiBundle
 } from '@corpsmap/corpsmap-bundles';
 
 export default composeBundles(
@@ -30,5 +32,9 @@ export default composeBundles(
   createJwtApiBundle({
     root: 'https://x1s6pwmufa.execute-api.us-east-1.amazonaws.com/production'
   }),
-  drawDataBundle
+  drawDataBundle,
+  collabBundle,
+  createWebsocketApiBundle({
+    url: 'wss://laelxozeog.execute-api.us-east-1.amazonaws.com/production'
+  })
 );
