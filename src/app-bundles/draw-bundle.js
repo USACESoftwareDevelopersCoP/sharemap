@@ -2,6 +2,7 @@ import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import Draw from 'ol/interaction/Draw';
 import Select from 'ol/interaction/Select';
+import Modify from 'ol/interaction/Modify';
 
 export default {
 
@@ -14,7 +15,8 @@ export default {
       drawLines: null,
       drawPolygons: null,
       selectInteraction: null,
-      activeInteraction: null,
+      activeInteraction: [],
+      modifyInteraction: null,
       shouldInitialize: false
     }
 
@@ -41,11 +43,22 @@ export default {
   doDrawAddInteraction: (interaction) => ({ dispatch, store }) => {
     store.doDrawRemoveInteraction();
     const map = store.selectMap();
-    map.addInteraction(interaction);
+    const selectInteraction = store.selectDrawSelectInteraction();
+    const modifyInteraction = store.selectDrawModifyInteraction();
+
+    const activeInteraction = [ interaction ];
+    if(interaction === selectInteraction){
+      activeInteraction.push(modifyInteraction);
+    }
+
+    activeInteraction.forEach((interaction) => {
+      map.addInteraction(interaction);
+    });
+
     dispatch({
       type: 'DRAW_ADD_INTERACTION',
       payload: {
-        activeInteraction: interaction
+        activeInteraction: activeInteraction
       }
     })
   },
@@ -53,11 +66,13 @@ export default {
   doDrawRemoveInteraction: () => ({ dispatch, store }) => {
     const map = store.selectMap();
     const active = store.selectDrawActiveInteraction();
-    if(active) map.removeInteraction(active);
+    active.forEach((interaction) => {
+      map.removeInteraction(interaction);
+    })
     dispatch({
       type: 'DRAW_REMOVE_INTERACTION',
       payload: {
-        activeInteraction: null
+        activeInteraction: []
       }
     })
   },
@@ -78,6 +93,9 @@ export default {
       })
       map.addLayer(layer);
 
+      src.on('addfeature', store.doDrawDataSave);
+      src.on('removefeature', store.doDrawDataDelete);
+
       const drawPoints = new Draw({
         type: 'Point',
         source: src
@@ -97,6 +115,10 @@ export default {
         layers: [ layer ]
       })
 
+      const modifyInteraction = new Modify({
+        features: selectInteraction.getFeatures()
+      })
+
       dispatch({
         type: 'DRAW_INITIALIZE_FINISHED',
         payload: {
@@ -104,7 +126,8 @@ export default {
           drawPoints: drawPoints,
           drawLines: drawLines,
           drawPolygons: drawPolygons,
-          selectInteraction: selectInteraction
+          selectInteraction: selectInteraction,
+          modifyInteraction: modifyInteraction
         }
       })
     }
@@ -144,6 +167,10 @@ export default {
 
   selectDrawSelectInteraction: (state) => {
     return state.draw.selectInteraction;
+  },
+
+  selectDrawModifyInteraction: (state) => {
+    return state.draw.modifyInteraction;
   },
 
   selectDrawActiveInteraction: (state) => {

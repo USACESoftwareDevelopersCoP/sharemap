@@ -6,11 +6,13 @@ import cache from '../utils/cache'
 
 import routesBundle from './routes-bundle';
 import drawBundle from './draw-bundle';
+import drawDataBundle from './draw-data-bundle';
 
 import { 
   createAuthBundle, 
   createOlMapBundle,
-  createOlBasemapBundle
+  createOlBasemapBundle,
+  createJwtApiBundle
 } from '@corpsmap/corpsmap-bundles';
 
 export default composeBundles(
@@ -24,5 +26,9 @@ export default composeBundles(
   }),
   createOlMapBundle(),
   createOlBasemapBundle(),
-  drawBundle
+  drawBundle,
+  createJwtApiBundle({
+    root: 'https://x1s6pwmufa.execute-api.us-east-1.amazonaws.com/production'
+  }),
+  drawDataBundle
 );
